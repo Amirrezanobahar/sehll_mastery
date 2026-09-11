@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 🐚 Shell Mastery: From Bind Shell to Persistence
 
     A journey through my experience with Bind Shell, Reverse Shell, and maintaining access after exploitation.
